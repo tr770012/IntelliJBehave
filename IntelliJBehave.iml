@@ -47,6 +47,7 @@
         <jarDirectory url="file://$MODULE_DIR$/providedLib" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="lib" level="project" />
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">
     <option name="_basePreferences">

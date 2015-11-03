@@ -7,7 +7,7 @@ import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.util.QualifiedName
 import org.jetbrains.kotlin.asJava.LightClassUtil
 import org.jetbrains.kotlin.idea.stubindex.JetAnnotationsIndex
-import org.jetbrains.kotlin.psi.JetFunction
+import org.jetbrains.kotlin.psi.KtFunction
 
 /**
  * Created by Rodrigo Quesada on 20/09/15.
@@ -27,16 +27,16 @@ class KotlinAnnotationsLoader private constructor() {
         return if (name != null) {
 
             JetAnnotationsIndex.getInstance().get(name, project, scope).asSequence()
-                    .mapNotNull({ jetAnnotation ->
+                    .filterNotNull()
+                    .map({ jetAnnotation ->
 
-                        val function = jetAnnotation.parent?.parent as? JetFunction
+                        val function = jetAnnotation.parent?.parent as? KtFunction
                         function?.let {
                             val psiAnnotation = LightClassUtil.getLightClassMethod(function)?.modifierList?.findAnnotation(qualifiedName.toString())
                             psiAnnotation?.let { NavigableKotlinPsiAnnotation(psiAnnotation, jetAnnotation) }
                         }
 
                     }).filterNotNull().toList()
-        }
-        else emptyList()
+        } else emptyList()
     }
 }

@@ -2,14 +2,14 @@ package com.github.kumaraman21.intellijbehave.kotlin.psi
 
 import com.intellij.psi.PsiAnnotation
 import com.intellij.psi.PsiElement
-import org.jetbrains.kotlin.psi.JetElement
+import org.jetbrains.kotlin.psi.KtElement
 
 /**
  * Created by Rodrigo Quesada on 20/09/15.
  */
 class NavigableKotlinPsiAnnotation(
         private val psiAnnotation: PsiAnnotation,
-        jetElement: JetElement
+        jetElement: KtElement
 ) : PsiAnnotation by psiAnnotation {
 
     private val navigableKotlinPsiElement = NavigableKotlinPsiElement(psiAnnotation, jetElement)
