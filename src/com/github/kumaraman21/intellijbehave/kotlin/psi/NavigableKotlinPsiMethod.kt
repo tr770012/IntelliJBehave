@@ -9,10 +9,10 @@ import org.jetbrains.kotlin.psi.KtElement
  */
 class NavigableKotlinPsiMethod(
         private val psiMethod: PsiMethod,
-        jetElement: KtElement
+        ktElement: KtElement
 ) : PsiMethod by psiMethod {
 
-    private val navigableKotlinPsiElement = NavigableKotlinPsiElement(psiMethod, jetElement)
+    private val navigableKotlinPsiElement = NavigableKotlinPsiElement(psiMethod, ktElement)
 
     override fun getTextOffset(): Int = navigableKotlinPsiElement.textOffset
 

@@ -6,7 +6,7 @@ import com.intellij.psi.PsiAnnotation
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.util.QualifiedName
 import org.jetbrains.kotlin.asJava.LightClassUtil
-import org.jetbrains.kotlin.idea.stubindex.JetAnnotationsIndex
+import org.jetbrains.kotlin.idea.stubindex.KotlinAnnotationsIndex
 import org.jetbrains.kotlin.psi.KtFunction
 
 /**
@@ -26,14 +26,14 @@ class KotlinAnnotationsLoader private constructor() {
         val name = qualifiedName.lastComponent
         return if (name != null) {
 
-            JetAnnotationsIndex.getInstance().get(name, project, scope).asSequence()
+            KotlinAnnotationsIndex.getInstance().get(name, project, scope).asSequence()
                     .filterNotNull()
-                    .map({ jetAnnotation ->
+                    .map({ ktAnnotation ->
 
-                        val function = jetAnnotation.parent?.parent as? KtFunction
+                        val function = ktAnnotation.parent?.parent as? KtFunction
                         function?.let {
                             val psiAnnotation = LightClassUtil.getLightClassMethod(function)?.modifierList?.findAnnotation(qualifiedName.toString())
-                            psiAnnotation?.let { NavigableKotlinPsiAnnotation(psiAnnotation, jetAnnotation) }
+                            psiAnnotation?.let { NavigableKotlinPsiAnnotation(psiAnnotation, ktAnnotation) }
                         }
 
                     }).filterNotNull().toList()
